@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Practice — Grammar Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F6F1E4;
+    --paper-line: #D9CFAF;
+    --ink: #26313A;
+    --ink-soft: #5B6670;
+    --forest: #3F5B44;
+    --forest-dark: #2E4433;
+    --mustard: #C8932E;
+    --mustard-light: #F1DCA6;
+    --rust: #A6432F;
+    --rust-light: #F0D9CF;
+    --radius: 4px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header{
+    background: var(--forest);
+    color: var(--paper);
+    padding: 48px 24px 40px;
+  }
+
+  header .wrap{ max-width: 560px; margin: 0 auto; }
+
+  header .kicker{
+    font-size: 0.85rem;
+    color: var(--mustard-light);
+    margin: 0 0 10px;
+    font-weight: 500;
+  }
+
+  header h1{
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+
+  header p{
+    margin: 0;
+    max-width: 52ch;
+    color: #DCE4DC;
+    font-size: 1.02rem;
+  }
+
+  main{
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 40px 24px 100px;
+  }
+
+  /* ---------- menu ---------- */
+  #menu-view .menu-intro{
+    margin: 0 0 26px;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  .topic-card{
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.15s ease, transform 0.08s ease;
+  }
+
+  .topic-card:hover{ border-color: var(--forest); }
+  .topic-card:active{ transform: scale(0.995); }
+
+  .topic-card .topic-name{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--forest-dark);
+    margin: 0 0 6px;
+  }
+
+  .topic-card .topic-desc{
+    margin: 0 0 10px;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .topic-card .topic-meta{
+    font-size: 0.82rem;
+    color: var(--mustard);
+    font-weight: 600;
+  }
+
+  /* ---------- progress ---------- */
+  .top-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  #back-to-menu{
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  #back-to-menu:hover{ color: var(--forest-dark); }
+
+  .progress-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .progress-track{
+    height: 6px;
+    background: var(--paper-line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 34px;
+  }
+
+  .progress-fill{
+    height: 100%;
+    background: var(--forest);
+    width: 5%;
+    transition: width 0.25s ease;
+  }
+
+  /* ---------- quiz card ---------- */
+  .quiz-card{
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+  }
+
+  .sentence{
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.35rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0 0 26px;
+  }
+
+  .hint{
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85em;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* multiple choice options */
+  .options-list{
+    list-style: none;
+    margin: 0 0 26px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn{
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--paper);
+    border: 1.5px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+
+  .option-btn:hover:not(:disabled){ border-color: var(--forest); }
+  .option-btn:disabled{ cursor: default; }
+
+  .option-btn.selected{
+    border-color: var(--forest);
+    background: var(--mustard-light);
+  }
+
+  .option-btn.reveal-correct{
+    border-color: var(--forest);
+    background: #E7EFE6;
+    color: var(--forest-dark);
+    font-weight: 600;
+  }
+
+  .option-btn.reveal-incorrect{
+    border-color: var(--rust);
+    background: var(--rust-light);
+    color: var(--rust);
+  }
+
+  .blank-input{
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--forest-dark);
+    width: 130px;
+    padding: 4px 8px;
+    border: none;
+    border-bottom: 2px solid var(--ink-soft);
+    background: transparent;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .blank-input:focus{
+    border-color: var(--forest);
+    background: var(--mustard-light);
+  }
+
+  .quiz-card.correct .blank-input{
+    border-color: var(--forest);
+    background: #E7EFE6;
+    color: var(--forest-dark);
+  }
+
+  .quiz-card.incorrect .blank-input{
+    border-color: var(--rust);
+    background: var(--rust-light);
+    color: var(--rust);
+  }
+
+  .feedback-note{
+    display: none;
+    margin: -12px 0 22px;
+    font-size: 0.92rem;
+    color: var(--rust);
+  }
+
+  .quiz-card.incorrect .feedback-note{ display: block; }
+
+  .feedback-note.good{
+    display: none;
+    margin: -12px 0 22px;
+    font-size: 0.92rem;
+    color: var(--forest-dark);
+  }
+
+  .quiz-card.correct .feedback-note.good{ display: block; }
+  .quiz-card.correct .feedback-note{ display: none; }
+
+  .card-controls{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  button{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.08s ease, background 0.15s ease, opacity 0.15s ease;
+  }
+
+  button:active{ transform: scale(0.98); }
+  button:disabled{ opacity: 0.45; cursor: not-allowed; }
+
+  #check-btn, #next-btn{ background: var(--forest); color: var(--paper); }
+  #check-btn:hover:not(:disabled), #next-btn:hover:not(:disabled){ background: var(--forest-dark); }
+
+  #prev-btn{
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--paper-line);
+  }
+  #prev-btn:hover:not(:disabled){ border-color: var(--ink-soft); }
+
+  #next-btn{ display: none; }
+
+  /* ---------- results ---------- */
+  #results-card{
+    display: none;
+    background: #fff;
+    border: 1px solid var(--paper-line);
+    border-left: 4px solid var(--forest);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    text-align: left;
+  }
+
+  #results-card.show{ display: block; }
+
+  #results-card .score-line{
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--forest-dark);
+    margin: 0 0 6px;
+  }
+
+  #results-card .score-sub{
+    margin: 0 0 24px;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  #results-card .missed-list{
+    list-style: none;
+    margin: 0 0 26px;
+    padding: 0;
+    border-top: 1px solid var(--paper-line);
+  }
+
+  #results-card .missed-list li{
+    padding: 12px 0;
+    border-bottom: 1px solid var(--paper-line);
+    font-size: 0.95rem;
+  }
+
+  #results-card .missed-list .missed-answer{
+    color: var(--rust);
+    font-weight: 600;
+  }
+
+  .results-controls{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  #restart-btn{ background: var(--forest); color: var(--paper); }
+  #restart-btn:hover{ background: var(--forest-dark); }
+
+  #choose-topic-btn{
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--paper-line);
+  }
+  #choose-topic-btn:hover{ border-color: var(--ink-soft); }
+
+  footer{
+    text-align: center;
+    padding: 30px 24px 50px;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
+
+  .hidden{ display: none !important; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; }
+  }
+
+  @media (max-width: 480px){
+    .quiz-card{ padding: 26px 20px; }
+    .sentence{ font-size: 1.15rem; }
+    .card-controls{ flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="kicker">English practice</p>
+    <h1 id="page-title">Grammar drills</h1>
+    <p id="page-subtitle">Pick a topic below, then work through it one question at a time.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- MENU -->
+  <div id="menu-view">
+    <p class="menu-intro">Choose what you'd like to practice today.</p>
+    <div id="topic-list"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-view" class="hidden">
+    <div class="top-row">
+      <button id="back-to-menu" type="button">&larr; Choose another topic</button>
+    </div>
+    <div class="progress-row">
+      <span id="progress-label">Question 1 of 20</span>
+      <span id="progress-score">0 correct</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div class="quiz-card" id="quiz-card">
+      <p class="sentence" id="sentence-text"></p>
+      <ul class="options-list hidden" id="options-list"></ul>
+      <div class="feedback-note good" id="feedback-good">Correct.</div>
+      <div class="feedback-note" id="feedback-bad">Correct answer: <span id="correct-answer-word"></span></div>
+      <div class="card-controls">
+        <button id="prev-btn" type="button">Previous</button>
+        <button id="check-btn" type="button">Check answer</button>
+        <button id="next-btn" type="button">Next question</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-card">
+    <p class="score-line" id="score-line"></p>
+    <p class="score-sub" id="score-sub"></p>
+    <ul class="missed-list" id="missed-list"></ul>
+    <div class="results-controls">
+      <button id="restart-btn" type="button">Try again</button>
+      <button id="choose-topic-btn" type="button">Choose another topic</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Made for learners practicing English grammar.
+</footer>
+
+<script>
+  const topics = {
+    prepositions: {
+      name: "Prepositions",
+      description: "Fill in the missing preposition — in, on, at, for, since, and more.",
+      items: [
+        { type: "blank", before: "She was born", hint: "", after: "1998.", answers: ["in"] },
+        { before: "The meeting starts", hint: "", after: "9 o'clock.", answers: ["at"] },
+        { before: "He argued", hint: "", after: "his brother about the money.", answers: ["with"] },
+        { before: "My birthday is", hint: "", after: "July.", answers: ["in"] },
+        { before: "We arrived", hint: "", after: "the airport two hours early.", answers: ["at"] },
+        { before: "The photo is hanging", hint: "", after: "the wall.", answers: ["on"] },
+        { before: "She has lived here", hint: "", after: "ten years.", answers: ["for"] },
+        { before: "I haven't seen him", hint: "", after: "Monday.", answers: ["since"] },
+        { before: "Turn left", hint: "", after: "the traffic lights.", answers: ["at"] },
+        { before: "The dog ran", hint: "", after: "the garden.", answers: ["across"] },
+        { before: "He divided the cake", hint: "", after: "four friends.", answers: ["among"] },
+        { before: "The ball rolled", hint: "", after: "the table.", answers: ["under"] },
+        { before: "She is standing", hint: "", after: "Tom and Sara.", answers: ["between"] },
+        { before: "We travelled", hint: "", after: "train to Boston.", answers: ["by"] },
+        { before: "This letter is", hint: "", after: "my grandmother.", answers: ["from"] },
+        { before: "He apologized", hint: "", after: "being late.", answers: ["for"] },
+        { before: "I'm looking forward", hint: "", after: "the weekend.", answers: ["to"] },
+        { before: "I'm proud", hint: "", after: "you.", answers: ["of"] },
+        { before: "She jumped", hint: "", after: "the pool.", answers: ["into"] },
+        { before: "Put the book back", hint: "", after: "the shelf.", answers: ["on"] }
+      ]
+    },
+    irregularVerbs: {
+      name: "Irregular verbs",
+      description: "Put the verb in brackets into the correct past simple form.",
+      items: [
+        { before: "Yesterday, she", hint: "go", after: "to the market.", answers: ["went"] },
+        { before: "We", hint: "see", after: "a great film last night.", answers: ["saw"] },
+        { before: "He", hint: "eat", after: "the whole pizza by himself.", answers: ["ate"] },
+        { before: "I", hint: "have", after: "a strange dream last night.", answers: ["had"] },
+        { before: "They", hint: "do", after: "their homework before dinner.", answers: ["did"] },
+        { before: "She", hint: "take", after: "the early train this morning.", answers: ["took"] },
+        { before: "He", hint: "come", after: "home late yesterday.", answers: ["came"] },
+        { before: "My aunt", hint: "give", after: "me this watch for my birthday.", answers: ["gave"] },
+        { before: "We", hint: "make", after: "dinner together on Sunday.", answers: ["made"] },
+        { before: "She", hint: "write", after: "three letters last week.", answers: ["wrote"] },
+        { before: "He", hint: "drive", after: "to work in the rain.", answers: ["drove"] },
+        { before: "I accidentally", hint: "break", after: "my phone screen.", answers: ["broke"] },
+        { before: "The teacher", hint: "speak", after: "very clearly during the lesson.", answers: ["spoke"] },
+        { before: "They", hint: "buy", after: "a new sofa last month.", answers: ["bought"] },
+        { before: "She", hint: "bring", after: "snacks for everyone.", answers: ["brought"] },
+        { before: "I", hint: "think", after: "about you all day.", answers: ["thought"] },
+        { before: "He", hint: "feel", after: "much better after the walk.", answers: ["felt"] },
+        { before: "We finally", hint: "find", after: "the keys under the sofa.", answers: ["found"] },
+        { before: "She", hint: "get", after: "home just before the storm.", answers: ["got"] },
+        { before: "I", hint: "know", after: "the answer immediately.", answers: ["knew"] }
+      ]
+    },
+    multipleChoice: {
+      name: "Multiple choice",
+      description: "Grammar and vocabulary questions — pick the correct option.",
+      items: [
+        { type: "choice", question: "She is _____ than her sister.", options: ["tall", "taller", "tallest", "more tall"], answerIndex: 1 },
+        { type: "choice", question: "There isn't _____ milk in the fridge.", options: ["many", "much", "a lot", "few"], answerIndex: 1 },
+        { type: "choice", question: "Choose the word closest in meaning to \"happy\".", options: ["sad", "joyful", "angry", "tired"], answerIndex: 1 },
+        { type: "choice", question: "If it rains, we _____ stay home.", options: ["will", "would", "are", "did"], answerIndex: 0 },
+        { type: "choice", question: "Choose the opposite of \"expensive\".", options: ["cheap", "costly", "rich", "poor"], answerIndex: 0 },
+        { type: "choice", question: "He is interested _____ music.", options: ["on", "at", "in", "for"], answerIndex: 2 },
+        { type: "choice", question: "What is the plural of \"child\"?", options: ["childs", "children", "childes", "child"], answerIndex: 1 },
+        { type: "choice", question: "I have _____ finished my homework.", options: ["already", "yet", "still", "ever"], answerIndex: 0 },
+        { type: "choice", question: "You are coming, _____?", options: ["are you", "aren't you", "do you", "don't you"], answerIndex: 1 },
+        { type: "choice", question: "She said she _____ tired.", options: ["is", "was", "be", "being"], answerIndex: 1 },
+        { type: "choice", question: "This book is _____ interesting than that one.", options: ["more", "most", "much", "very"], answerIndex: 0 },
+        { type: "choice", question: "Choose the opposite of \"difficult\".", options: ["hard", "simple", "complex", "tough"], answerIndex: 1 },
+        { type: "choice", question: "They have been living here _____ 2010.", options: ["for", "since", "from", "at"], answerIndex: 1 },
+        { type: "choice", question: "Which spelling is correct?", options: ["recieve", "receive", "receeve", "receve"], answerIndex: 1 },
+        { type: "choice", question: "Neither of them _____ coming to the party.", options: ["is", "are", "were", "have"], answerIndex: 0 },
+        { type: "choice", question: "_____ university is a great place to learn.", options: ["A", "An", "The", "No article"], answerIndex: 0 },
+        { type: "choice", question: "By the time we arrived, the movie _____ already started.", options: ["has", "had", "have", "was"], answerIndex: 1 },
+        { type: "choice", question: "The letter _____ yesterday.", options: ["was sent", "is sent", "sent", "has sent"], answerIndex: 0 },
+        { type: "choice", question: "Which word does not belong with the others?", options: ["apple", "banana", "carrot", "orange"], answerIndex: 2 },
+        { type: "choice", question: "I wish I _____ more time.", options: ["have", "had", "has", "having"], answerIndex: 1 }
+      ]
+    }
+  };
+
+  let activeTopicKey = null;
+  let current = 0;
+  let userAnswers = [];
+  let results = [];
+
+  const menuView = document.getElementById('menu-view');
+  const quizView = document.getElementById('quiz-view');
+  const resultsCard = document.getElementById('results-card');
+  const topicList = document.getElementById('topic-list');
+  const quizCard = document.getElementById('quiz-card');
+  const sentenceText = document.getElementById('sentence-text');
+  const optionsList = document.getElementById('options-list');
+  const progressLabel = document.getElementById('progress-label');
+  const progressScore = document.getElementById('progress-score');
+  const progressFill = document.getElementById('progress-fill');
+  const correctAnswerWord = document.getElementById('correct-answer-word');
+  const prevBtn = document.getElementById('prev-btn');
+  const checkBtn = document.getElementById('check-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function buildMenu(){
+    topicList.innerHTML = '';
+    Object.keys(topics).forEach((key) => {
+      const topic = topics[key];
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'topic-card';
+      card.innerHTML = '<p class="topic-name">' + topic.name + '</p>' +
+        '<p class="topic-desc">' + topic.description + '</p>' +
+        '<p class="topic-meta">' + topic.items.length + ' questions</p>';
+      card.addEventListener('click', () => startTopic(key));
+      topicList.appendChild(card);
+    });
+  }
+
+  function startTopic(key){
+    activeTopicKey = key;
+    current = 0;
+    const len = topics[key].items.length;
+    userAnswers = new Array(len).fill('');
+    results = new Array(len).fill(null);
+
+    menuView.classList.add('hidden');
+    resultsCard.classList.remove('show');
+    quizView.classList.remove('hidden');
+
+    renderQuestion();
+  }
+
+  function goToMenu(){
+    quizView.classList.add('hidden');
+    resultsCard.classList.remove('show');
+    menuView.classList.remove('hidden');
+  }
+
+  function renderQuestion(){
+    const items = topics[activeTopicKey].items;
+    const ex = items[current];
+    const isChoice = ex.type === 'choice';
+    const checked = results[current] !== null;
+
+    quizCard.classList.remove('correct', 'incorrect');
+    sentenceText.innerHTML = '';
+    optionsList.innerHTML = '';
+
+    if (isChoice) {
+      optionsList.classList.remove('hidden');
+      sentenceText.textContent = ex.question;
+      correctAnswerWord.textContent = ex.options[ex.answerIndex];
+
+      ex.options.forEach((optionText, i) => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = optionText;
+
+        if (checked) {
+          btn.disabled = true;
+          if (i === ex.answerIndex) btn.classList.add('reveal-correct');
+          else if (i === userAnswers[current]) btn.classList.add('reveal-incorrect');
+        } else {
+          if (userAnswers[current] === i) btn.classList.add('selected');
+          btn.addEventListener('click', () => {
+            userAnswers[current] = i;
+            Array.from(optionsList.querySelectorAll('.option-btn')).forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            checkBtn.disabled = false;
+          });
+        }
+
+        li.appendChild(btn);
+        optionsList.appendChild(li);
+      });
+
+      checkBtn.disabled = !checked && typeof userAnswers[current] !== 'number';
+    } else {
+      optionsList.classList.add('hidden');
+      const beforeNode = document.createTextNode(ex.before + ' ');
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'blank-input';
+      input.autocomplete = 'off';
+      input.autocapitalize = 'off';
+      input.spellcheck = false;
+      input.value = userAnswers[current] || '';
+      input.setAttribute('aria-label', 'Your answer');
+
+      sentenceText.appendChild(beforeNode);
+      sentenceText.appendChild(input);
+
+      if (ex.hint) {
+        const hintNode = document.createElement('span');
+        hintNode.className = 'hint';
+        hintNode.textContent = ' (' + ex.hint + ')';
+        sentenceText.appendChild(hintNode);
+      }
+
+      sentenceText.appendChild(document.createTextNode(' ' + ex.after));
+      correctAnswerWord.textContent = ex.answers[0];
+      checkBtn.disabled = false;
+
+      if (!checked) {
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            checkBtn.click();
+          }
+        });
+        setTimeout(() => input.focus(), 0);
+      } else {
+        input.disabled = true;
+      }
+    }
+
+    if (checked) {
+      quizCard.classList.add(results[current] ? 'correct' : 'incorrect');
+      checkBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-block';
+    } else {
+      checkBtn.style.display = 'inline-block';
+      nextBtn.style.display = 'none';
+    }
+
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === items.length - 1 ? 'See results' : 'Next question';
+
+    progressLabel.textContent = 'Question ' + (current + 1) + ' of ' + items.length;
+    const correctSoFar = results.filter(r => r === true).length;
+    progressScore.textContent = correctSoFar + ' correct';
+    progressFill.style.width = ((current / items.length) * 100) + '%';
+  }
+
+  checkBtn.addEventListener('click', () => {
+    const items = topics[activeTopicKey].items;
+    const ex = items[current];
+    let isCorrect;
+
+    if (ex.type === 'choice') {
+      if (typeof userAnswers[current] !== 'number') return;
+      isCorrect = userAnswers[current] === ex.answerIndex;
+    } else {
+      const input = sentenceText.querySelector('.blank-input');
+      const value = input.value.trim().toLowerCase();
+      isCorrect = ex.answers.includes(value);
+      userAnswers[current] = input.value.trim();
+    }
+
+    results[current] = isCorrect;
+    renderQuestion();
+    nextBtn.focus();
+
+    const correctSoFar = results.filter(r => r === true).length;
+    progressScore.textContent = correctSoFar + ' correct';
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const items = topics[activeTopicKey].items;
+    if (current === items.length - 1) {
+      showResults();
+    } else {
+      current++;
+      progressFill.style.width = ((current / items.length) * 100) + '%';
+      renderQuestion();
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (current > 0) {
+      current--;
+      renderQuestion();
+    }
+  });
+
+  function showResults(){
+    const items = topics[activeTopicKey].items;
+    quizView.classList.add('hidden');
+    resultsCard.classList.add('show');
+
+    const correctCount = results.filter(r => r === true).length;
+    document.getElementById('score-line').textContent = correctCount + ' out of ' + items.length + ' correct';
+    document.getElementById('score-sub').textContent = correctCount === items.length
+      ? 'All correct — nice work.'
+      : 'Here are the ones to review:';
+
+    const missedList = document.getElementById('missed-list');
+    missedList.innerHTML = '';
+
+    if (correctCount === items.length) return;
+
+    items.forEach((ex, i) => {
+      if (results[i] === false) {
+        const li = document.createElement('li');
+        if (ex.type === 'choice') {
+          const yourAnswer = typeof userAnswers[i] === 'number' ? ex.options[userAnswers[i]] : '(nothing)';
+          li.innerHTML = ex.question + '<br>Correct answer: <span class="missed-answer">' + ex.options[ex.answerIndex] + '</span>'
+            + '<br><span style="color:var(--ink-soft)">You chose: ' + yourAnswer + '</span>';
+        } else {
+          const hintPart = ex.hint ? ' (' + ex.hint + ')' : '';
+          li.innerHTML = ex.before + hintPart + ' <span class="missed-answer">' + ex.answers[0] + '</span> ' + ex.after
+            + '<br><span style="color:var(--ink-soft)">You wrote: ' + (userAnswers[i] || '(nothing)') + '</span>';
+        }
+        missedList.appendChild(li);
+      }
+    });
+  }
+
+  document.getElementById('restart-btn').addEventListener('click', () => {
+    startTopic(activeTopicKey);
+  });
+
+  document.getElementById('choose-topic-btn').addEventListener('click', goToMenu);
+  document.getElementById('back-to-menu').addEventListener('click', goToMenu);
+
+  buildMenu();
+</script>
+
+</body>
+</html>
